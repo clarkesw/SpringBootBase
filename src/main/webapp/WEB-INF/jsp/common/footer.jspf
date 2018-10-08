@@ -3,8 +3,8 @@
 <script
 	src="webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js"></script>
 <script>
-	$('#targetDate').datepicker({
-		format : 'dd/mm/yyyy'
+	$('#targetDatePicker').datepicker({
+		format : 'mm/dd/yyyy'
 	});
 </script>
 
