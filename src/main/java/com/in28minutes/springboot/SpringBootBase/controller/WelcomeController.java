@@ -8,17 +8,16 @@ package com.in28minutes.springboot.SpringBootBase.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("username")
+@SessionAttributes("user")
 public class WelcomeController {
     
 //    @Autowired
@@ -27,32 +26,17 @@ public class WelcomeController {
     
     @GetMapping("/")
     public String showWelcomePage(ModelMap model){
-        model.put("username", "Clarke");  //getLoggedInUser());
-        logger.debug(" Made into the login controller ");
+        model.put("user", getLoggedInUser());
+        return "welcome";
+    }
+    
+    @GetMapping("/welcome")
+    public String showWelcomePageAfterLogin(ModelMap model){
         return "welcome";
     }
     
     private String getLoggedInUser(){
-        Object principal = SecurityContextHolder.getContext().getAuthentication();
-        if(principal instanceof UserDetails){
-            return ((UserDetails)principal).getUsername();
-        }
-        return principal.toString();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
     }
-//    @PostMapping("/login")
-//    public String showWelcomePage(ModelMap model, @RequestParam String username, @RequestParam String password){
-//        
-//        boolean isValidUser = service.validateUser(username, password);
-//
-//        if (!isValidUser) {
-//            System.out.println("****** "+username+"     "+password);
-//            model.put("errorMessage", "Invalid Username/Password");
-//            return "login";
-//        }
-//
-//        model.put("username", username);
-//        model.put("password", password);
-//
-//        return "redirect:/list-todos";
-//    }
 }

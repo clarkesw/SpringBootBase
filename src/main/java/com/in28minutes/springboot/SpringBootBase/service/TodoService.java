@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
+//https://www.youtube.com/watch?v=CCVvq4g4Qj0
 
 @Service
 public class TodoService {
@@ -29,9 +29,10 @@ public class TodoService {
 
     public List<Todo> retrieveTodos(String user) {
         List<Todo> filteredTodos = new ArrayList<Todo>();
+       
         for (Todo todo : todos) {
-            if (todo.getUser().equals(user)) {
-                  System.out.println("++++++++++  retrieveTodos "+todo);
+            
+            if(todo.getUser().equals(user)) {
                 filteredTodos.add(todo);
             }
         }

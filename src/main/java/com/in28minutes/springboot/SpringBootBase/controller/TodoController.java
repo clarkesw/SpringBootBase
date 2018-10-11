@@ -8,6 +8,7 @@ package com.in28minutes.springboot.SpringBootBase.controller;
 import com.in28minutes.springboot.SpringBootBase.dao.Todo;
 import com.in28minutes.springboot.SpringBootBase.service.TodoService;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("username")
+@SessionAttributes("user")
 public class TodoController {
     
     @Autowired
@@ -32,8 +33,8 @@ public class TodoController {
     
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        // Date - dd/MM/yyyy
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MM/dd/yyyy");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(
                 dateFormat, false));
     }
@@ -46,7 +47,11 @@ public class TodoController {
     }
 
     private String getLoggedInName(ModelMap model) {
-        return (String)model.get("username");
+        Collection<Object> values = model.values();
+//        for(Object val: values){
+//             System.out.println("++++++++ getLoggedInName" + val);
+//        }
+        return (String)model.get("user");
     }
  
     @GetMapping("/add-todos")
